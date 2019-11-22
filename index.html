@@ -2,30 +2,54 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <title>Igra - Alfabet</title>
+    <title>Igra - Raspored Slova</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <center>
 <form name=pad>
-<table border=2 cellpadding=2 cellspacing=2>
+<table class="steelBlueCols" border=2 cellpadding=2 cellspacing=2>
 <tr>
-<td colspan=4 align=center>Poredajte sve po alfabetičkom redu</td>
+<td id="opis" colspan=4 align=center>Poredajte sve po alfabetičkom redu</td>
 </tr>
 
 <script language="JavaScript">
 
-
+//Pravljenje tabele u kojoj će biti slova
 bx=3; by=3;
     for (y=0;y<4;y++) {
         document.write('<tr>');
             for (x=0;x<4;x++) {
-                document.write('<td><tt><input type=button value="   " ');
+                document.write('<td><tt><input class="dugme" type=button value="   " ');
                 document.write('onclick="move('+x+','+y+');"></tt></td>');
             }
         document.write('</tr>');
     }
     
 function move(x,y) {
+    var array = [];
+    array.push(document.pad.elements[0].value);
+    array.push(document.pad.elements[1].value);
+    array.push(document.pad.elements[2].value);
+    array.push(document.pad.elements[3].value);
+    array.push(document.pad.elements[4].value);
+    array.push(document.pad.elements[5].value);
+    array.push(document.pad.elements[6].value);
+    array.push(document.pad.elements[7].value);
+    array.push(document.pad.elements[8].value);
+    array.push(document.pad.elements[9].value);
+    array.push(document.pad.elements[10].value);
+    array.push(document.pad.elements[11].value);
+    array.push(document.pad.elements[12].value);
+    array.push(document.pad.elements[13].value);
+    array.push(document.pad.elements[14].value);
+    array.push(document.pad.elements[15].value);
+    if(isWon(array))
+    {
+        console.log("WIN");  
+        document.getElementsByTagName("html")[0].innerHTML = '<div class"win">Pobjeda! Čestitamo, trebalo Vam je '+ f.msg.value + ' poteza</div><a href="index.html">Igraj opet</a>';
+    }
+    
     ax=Math.abs(bx-x);
     ay=Math.abs(by-y);
     if (((ax*ay)==0)&&((ax+ay)==1)) 
@@ -33,13 +57,29 @@ function move(x,y) {
         f=document.pad;
         f.elements[4*by+bx].value=f.elements[4*y+x].value;
         f.elements[4*y+x].value="   ";
-        bx=x; by=y; f.msg.value++;
+        bx=x; 
+        by=y; 
+        f.msg.value++;
     }
+}
+    
+function isWon(arr)
+{
+    var provjera = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', ' '];
+    for(var i = 0; i < provjera.length; ++i)
+    {
+        if(arr[i] != provjera[i])
+        {
+            return false;
+        }
+    }
+    return true;
 }
     
 function rndize() {
 	//radnom slova
     alpha="ABCDEFGHIJKLMNO ";
+    
     for (i=0;i<16;i++) {
         x=0;
         y=0;
@@ -58,7 +98,7 @@ rndize();
 </script>
 
 <tr>
-<td colspan=4><input type=text size=20 name=msg></td>
+<td colspan=4><input id="rezultat" type=text size=20 name=msg disabled="disabled"></td>
 </tr>
 </table>
 </form>
