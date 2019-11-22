@@ -58,7 +58,8 @@ table.steelBlueCols tfoot .links a{
     font-weight: bold;
     font-size: 2em;
     outline:none;
-	width: 80%;
+	width: 200px;
+	height: 70px;
 }
 #rezultat{
     color: white;
